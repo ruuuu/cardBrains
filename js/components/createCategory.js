@@ -26,10 +26,26 @@ export const createCategory = (app) => {  //app-родиель
             const item = createElement('li', { className: 'category__item'});
 
             item.dataset.id = data.id;  // создание атрибута data-id
-            item.textContent = 'привет';
+           
+            // написать добавление др элементов:
+
+            const categoryCardBtn = createElement('button', {className: 'category__card'});
+            const categoryTitle = createElement('span', { className: 'category__title', textContent: data.title });
+            const categoryPairs = createElement('span', { className: 'category__pairs', textContent: `${data.length} пар`});
+            const categoryEditBtn = createElement('button', { className: 'category__btn category__edit', ariaLabel : 'редактировать' });
+            const categoryDelBtn = createElement('button', { className: 'category__btn category__del', ariaLabel : 'удалить' });
+
+            // <button class="category__card">
+            //   <span class="category__title">Описание внешности</span>
+            //   <span class="category__pairs">26 пар</span>
+            // </button>
+            // <button class="category__btn category__edit" aria-label="редактировать"></button>
+            // <button class="category__btn category__del" aria-label="удалить"></button>
 
 
-            // написать добавление др элементов
+            categoryCardBtn.append(categoryTitle, categoryPairs);
+           
+            item.append(categoryCardBtn, categoryEditBtn, categoryDelBtn); // порядок добавления важен!
             return item;  // <li></li>
       };
      
