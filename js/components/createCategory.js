@@ -25,7 +25,9 @@ export const createCategory = (app) => {  //app-родиель
       const createCategoryCard = (data) => {   // категория с сервера  data = {id. title, length}
             const item = createElement('li', { className: 'category__item'});
 
-            item.dataset.id = data.id;  // создае атрибут data-id
+            item.dataset.id = data.id;  // создание атрибута data-id
+            item.textContent = 'привет';
+
 
             // написать добавление др элементов
             return item;  // <li></li>
@@ -35,10 +37,10 @@ export const createCategory = (app) => {  //app-родиель
       container.append(categoryList);
 
       const mount = (data) => {  // data = [{}, {}, {}] - массив категорий с сервера
-            categoryList.textContent = '';     
+            categoryList.textContent = '';    // очищаем секцию     
             app.append(category); // добавляем элемент category в конец app 
             
-            const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим массив [ <li></li>, <li></li>, <li></li>å]
+            const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим новый массив [ <li></li>, <li></li>, <li></li>å]
             categoryList.append(...cards);
       };
 
@@ -50,8 +52,6 @@ export const createCategory = (app) => {  //app-родиель
       category.append(container);
      
       return { mount, unmount, categoryList };   // возвращаем объект!
-
-      
 
 };
 
