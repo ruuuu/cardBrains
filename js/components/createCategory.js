@@ -35,17 +35,9 @@ export const createCategory = (app) => {  //app-родиель
             const categoryEditBtn = createElement('button', { className: 'category__btn category__edit', ariaLabel : 'редактировать' });
             const categoryDelBtn = createElement('button', { className: 'category__btn category__del', ariaLabel : 'удалить' });
 
-            // <button class="category__card">
-            //   <span class="category__title">Описание внешности</span>
-            //   <span class="category__pairs">26 пар</span>
-            // </button>
-            // <button class="category__btn category__edit" aria-label="редактировать"></button>
-            // <button class="category__btn category__del" aria-label="удалить"></button>
-
-
             categoryCardBtn.append(categoryTitle, categoryPairs);
-           
             item.append(categoryCardBtn, categoryEditBtn, categoryDelBtn); // порядок добавления важен!
+            
             return item;  // <li></li>
       };
      
