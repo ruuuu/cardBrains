@@ -37,16 +37,19 @@ export const createCategory = (app) => {  //app-родиель
       const mount = (data) => {  // data = [{}, {}, {}] - массив категорий с сервера
             categoryList.textContent = '';     
             app.append(category); // добавляем элемент category в конец app 
-            const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим массив [ <li></li>, <li></li>, <li></li>å]
             
-      }
+            const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим массив [ <li></li>, <li></li>, <li></li>å]
+            categoryList.append(...cards);
+      };
 
-      const unmount = () => {
 
-      }
+      const unmount = () => {  // убираем блок section с категриями
+            category.remove();  // удаляем элемент <section> 
+      };
 
       category.append(container);
      
+      return { mount, unmount, categoryList };   // возвращаем объект!
 
       
 

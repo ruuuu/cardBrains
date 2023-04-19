@@ -43,7 +43,7 @@ export const createHrader = (parent) => {
             headerTitle.textContent = title;
       };
 
-      
+      //  возвращаем объект!:
       return { headerLogolink, headerBtn, updateHeaderTitle }; // ттк на эти жлементы потом будем вешать событие  и также возвращаем функцию
      
 
