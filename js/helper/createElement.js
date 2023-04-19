@@ -3,6 +3,6 @@ export const createElement = (tag, attr) => {  // attr = { className, textConten
       const element = document.createElement(tag);  // любой элемент на странице эт объект
       Object.assign(element, attr);  // Добавляет/заменяет элементу element свойства указанные в attr
 
-      return element;  // <tag {attr}>
+      return element;  // <tag {attr}> </tag>
 
 };

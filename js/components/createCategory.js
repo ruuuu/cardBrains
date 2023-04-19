@@ -1,11 +1,54 @@
 // отрисовка карточки категории:
 import { createElement } from "../helper/createElement.js";
 
-export const createCategory = () => {
+export const createCategory = (app) => {  //app-родиель
 
-      createElement('li', {
+      const category =  createElement('section', 
+      {
+            className: 'category section-offset'
+      });
+
+
+      const container =  createElement('div', 
+      {
+            className: 'container'
+      });
+
+
+      const categoryList =  createElement('ul', 
+      {
+            className: 'category__list'
+      });
+
+      
+
+      const createCategoryCard = (data) => {   // категория с сервера  data = {id. title, length}
+            const item = createElement('li', { className: 'category__item'});
+
+            item.dataset.id = data.id;  // создае атрибут data-id
+
+            // напистаьдобавление др элементов
+            return item;  // <li></li>
+      };
+     
+
+      container.append(categoryList);
+
+      const mount = (data) => {  // data = [{}, {}, {}] - массив категорий с сервера
+            categoryList.textContent = '';     
+            app.append(category); // добавляем элемент category в конец app 
+            const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим массив [ <li></li>, <li></li>, <li></li>å]
             
-      })
+      }
+
+      const unmount = () => {
+
+      }
+
+      category.append(container);
+     
+
+      
 
 };
 
