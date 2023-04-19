@@ -27,7 +27,7 @@ export const createCategory = (app) => {  //app-родиель
 
             item.dataset.id = data.id;  // создае атрибут data-id
 
-            // напистаьдобавление др элементов
+            // написать добавление др элементов
             return item;  // <li></li>
       };
      
