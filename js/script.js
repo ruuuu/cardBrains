@@ -2,6 +2,7 @@ import { createCategory } from "./components/createCategory.js";
 import { createHrader } from "./components/createHeader.js";
 import { createElement } from "./helper/createElement.js";
 import { fecthCategories } from "./service/api_service.js";
+import { createEditCategory } from "./components/createEditCategory.js";
 
 
 
@@ -17,14 +18,25 @@ const initApp = async () => {  // ставим async тк в фукнции ес
      
 
       const categoryObj = createCategory(app);
-      console.log('categoryObj ', categoryObj); // { categoryLiat, mount, unmount }
+      console.log('categoryObj ', categoryObj); // { categoryList, mount, unmount }
 
+      const editCategoryObj = createEditCategory(app);
+      console.log('editCategoryObj  ', editCategoryObj); // { unmount  }
 
+      // очищение категорий :
+      const allSectionUnmount = () => {
+            // [ categoryObj, editCategoryObj ].forEach((obj) => {
+            //       obj.unmount();
+            // });
+            categoryObj.unmount();   // очищаем категории
+            editCategoryObj.unmount();
+      };
      
 
       const renderIndex = async(evt) => {
             evt?.preventDefault();  // если есть evt, то метод preventDefault()  вызовется
-
+            allSectionUnmount();
+            
             const categories = await fecthCategories();  // без await получим промис, поэтмоу ставим либо await, либо .then(). [{},{},{},{}]
             console.log('categorus ', categories);
             if(categories.error){
@@ -34,7 +46,7 @@ const initApp = async () => {  // ставим async тк в фукнции ес
             }
       
            
-            categoryObj.mount(categories); // заполняем  список ателгрий категориями
+            categoryObj.mount(categories); // заполняем  список картчоек категорий категориями
       };
 
       renderIndex();  // для инициализации вызываем
@@ -43,8 +55,9 @@ const initApp = async () => {  // ставим async тк в фукнции ес
       
 
       headerObj.headerBtn.addEventListener('click', () => { // кнопка Добавить категорию
-            categoryObj.unmount(); // удаляем спсик категрий
+            allSectionUnmount(); 
             headerObj.updateHeaderTitle('Новая категория');
+            editCategoryObj.mount();
       })
 };
 

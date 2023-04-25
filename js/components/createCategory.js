@@ -1,5 +1,6 @@
 // отрисовка карточки категории:
 import { createElement } from "../helper/createElement.js";
+import { declOfNum } from "../helper/declOfNum.js";
 
 export const createCategory = (app) => {  //app-родиель
 
@@ -31,7 +32,7 @@ export const createCategory = (app) => {  //app-родиель
 
             const categoryCardBtn = createElement('button', {className: 'category__card'});
             const categoryTitle = createElement('span', { className: 'category__title', textContent: data.title });
-            const categoryPairs = createElement('span', { className: 'category__pairs', textContent: `${data.length} пар`});
+            const categoryPairs = createElement('span', { className: 'category__pairs', textContent: declOfNum(data.length, [ 'пара', 'пары', 'пар'])}); 
             const categoryEditBtn = createElement('button', { className: 'category__btn category__edit', ariaLabel : 'редактировать' });
             const categoryDelBtn = createElement('button', { className: 'category__btn category__del', ariaLabel : 'удалить' });
 
@@ -44,6 +45,7 @@ export const createCategory = (app) => {  //app-родиель
 
       container.append(categoryList);
 
+      // добавляем карточки-категории в ul-categoryList:
       const mount = (data) => {  // data = [{}, {}, {}] - массив категорий с сервера
             categoryList.textContent = '';    // очищаем секцию     
             app.append(category); // добавляем элемент category в конец app 
@@ -64,11 +66,3 @@ export const createCategory = (app) => {  //app-родиель
 };
 
 
-{/* <li class="category__item" data-id="bc2iv1cwi6ht">
-            <button class="category__card">
-                  <span class="category__title">Косвенные местоимения</span>
-                  <span class="category__pairs">7 пар</span>
-            </button>
-            <button class="category__btn category__edit" aria-label="редактировать"></button>
-            <button class="category__btn category__del" aria-label="удалить"></button>
-</li> */}
