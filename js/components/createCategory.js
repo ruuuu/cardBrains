@@ -2,12 +2,10 @@
 import { createElement } from "../helper/createElement.js";
 import { declOfNum } from "../helper/declOfNum.js";
 
+
 export const createCategory = (app) => {  //app-родиель
 
-      const category =  createElement('section', 
-      {
-            className: 'category section-offset'
-      });
+      const category =  createElement('section', { className: 'category section-offset'});
 
 
       const container =  createElement('div', 
@@ -22,14 +20,13 @@ export const createCategory = (app) => {  //app-родиель
       });
 
       
-
-      const createCategoryCard = (data) => {   // категория с сервера  data = {id. title, length}
+// созданеи картчки категории:
+      const createCategoryCard = (data) => {   // категория с сервера  data = {id, title, length}
             const item = createElement('li', { className: 'category__item'});
 
             item.dataset.id = data.id;  // создание атрибута data-id
            
-            // написать добавление др элементов:
-
+           
             const categoryCardBtn = createElement('button', {className: 'category__card'});
             const categoryTitle = createElement('span', { className: 'category__title', textContent: data.title });
             const categoryPairs = createElement('span', { className: 'category__pairs', textContent: declOfNum(data.length, [ 'пара', 'пары', 'пар'])}); 
@@ -50,7 +47,7 @@ export const createCategory = (app) => {  //app-родиель
             categoryList.textContent = '';    // очищаем секцию     
             app.append(category); // добавляем элемент category в конец app 
             
-            const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим новый массив [ <li></li>, <li></li>, <li></li>å]
+            const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим новый массив [ <li></li>, <li></li>, <li></li>]
             categoryList.append(...cards);
       };
 

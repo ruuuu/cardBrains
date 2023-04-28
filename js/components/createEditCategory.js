@@ -12,14 +12,45 @@ export const createEditCategory  = (app) => {   // app- родитель
       const thead = createElement('thead');
       const trThead = createElement('tr');
 
+      const tableHeadCellMain = createElement('th', {className: 'table__cell', textContent: 'main'});
+      const tableHeadCellSecond = createElement('th', {className: 'table__cell', textContent: 'second'});
+      const tableHeadCellEmpty = createElement('th', {className: 'table__cell', textContent: ''});
 
+      const tbody = createElement('tbody');
+
+
+      const btnWrapper = createElement('div', {className: 'edit__btn-wrapper'});
+      const btnAddRow  = createElement('button', {className: 'edit__btn edit__add-row', textContent: 'Добавить пару'});
+      const btnSave = createElement('button', {className: 'edit__btn edit__save', textContent: 'Сохранить категорию'});
+      //btnSave.dataset.id = ;
+      const btnCancel = createElement('button', {className: 'edit__btn edit__cancel', textContent: 'Отмена'});
+      btnWrapper.append(btnAddRow, btnSave, btnCancel);  //  поряок добалвения элементов важен
       
+
+
       thead.append(trThead);
       table.append(thead);
       editCategory.append(container);
       container.append(title, table);
 
+      const createTrCell = (dataArr) => {  // {pair} /api/category/{id} - 
+        const tr = createElement('tr');
+        const tdOne = createElement('td', {className: 'table__cell table__cell_one', contenteditable:'true'});
+        const tdTwp = createElement('td', {className: 'table__cell table__cell_two', contenteditable:'true'});
+        const tdDelete = createElement('td', {className: 'table__cell table__cell_two', contenteditable:'true'});
+        //button class="table__del"
 
+      //   <tr>
+      //     <td class="table__cell table__cell_one" contenteditable="true">pair</td>
+      //     <td class="table__cell table__cell_two" contenteditable="true">brother</td>
+      //     <td class="table__cell"><button class="table__del">x</button></td>
+      //  </tr>
+      };
+
+
+    //  data.forEach(createTrCell())
+      
+//  data = /api/category/{id}  // [{pair1}, {pair2}, {pair3}]
 
       const unmount = () => {
 
@@ -32,6 +63,8 @@ export const createEditCategory  = (app) => {   // app- родитель
 
       return { unmount, mount };
 };
+
+
 
 {/* <section class="edit section-offset">
 <div class="container edit__container">

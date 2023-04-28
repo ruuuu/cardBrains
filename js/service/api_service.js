@@ -1,4 +1,4 @@
-const API_URL = 'https://maze-bevel-sidecar.glitch.me';
+const API_URL = 'https://maze-bevel-sidecar.glitch.me';  // на glitch сервер задеплоили
 
 
 // получение категорий с сервера:
@@ -18,7 +18,6 @@ export const fecthCategories = async () => {
            }
       }
       catch(error){
-            
             return { error };  // возврщаем ввиде еобъекта
       }
 };

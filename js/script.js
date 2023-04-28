@@ -9,7 +9,7 @@ import { createEditCategory } from "./components/createEditCategory.js";
 const initApp = async () => {  // ставим async тк в фукнции есть  await fecthCategories()
 
       //  любой элемент на станице эт объект(а занчит у него есть свои свойтсва и методы)
-      const headerParent =  document.querySelector('.header');  // любой элемент на станице это объект
+      const headerParent =  document.querySelector('.header');  // любой элемент на станице это объект,  а значи у него есть свойства методы(console.dir())
       const app =  document.querySelector('#app');  // объект <main></main>
 
 
@@ -21,7 +21,7 @@ const initApp = async () => {  // ставим async тк в фукнции ес
       console.log('categoryObj ', categoryObj); // { categoryList, mount, unmount }
 
       const editCategoryObj = createEditCategory(app);
-      console.log('editCategoryObj  ', editCategoryObj); // { unmount  }
+      console.log('editCategoryObj  ', editCategoryObj); // { unmount, mount  }
 
       // очищение категорий :
       const allSectionUnmount = () => {
@@ -51,7 +51,7 @@ const initApp = async () => {  // ставим async тк в фукнции ес
 
       renderIndex();  // для инициализации вызываем
 
-      headerObj.headerLogolink.addEventListener('click', renderIndex); // при клике вызовется фукнция  returnIndex
+      headerObj.headerLogolink.addEventListener('click', renderIndex); // при клике на лого, вызовется фукнция  renderIndex
       
 
       headerObj.headerBtn.addEventListener('click', () => { // кнопка Добавить категорию
@@ -61,4 +61,4 @@ const initApp = async () => {  // ставим async тк в фукнции ес
       })
 };
 
-initApp();
+initApp(); // отсюда все начинается!
