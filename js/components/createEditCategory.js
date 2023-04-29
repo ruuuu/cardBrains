@@ -24,33 +24,59 @@ export const createEditCategory  = (app) => {   // app- родитель
       const btnSave = createElement('button', {className: 'edit__btn edit__save', textContent: 'Сохранить категорию'});
       //btnSave.dataset.id = ;
       const btnCancel = createElement('button', {className: 'edit__btn edit__cancel', textContent: 'Отмена'});
-      btnWrapper.append(btnAddRow, btnSave, btnCancel);  //  поряок добалвения элементов важен
+      btnWrapper.append(btnAddRow, btnSave, btnCancel);  //  порядок добавления элементов важен
       
 
 
       thead.append(trThead);
-      table.append(thead);
+      table.append(thead, tbody);
+      trThead.append(tableHeadCellMain, tableHeadCellSecond, tableHeadCellEmpty);
       editCategory.append(container);
-      container.append(title, table);
+      container.append(title, table, btnWrapper);
 
-      const createTrCell = (dataArr) => {  // {pair} /api/category/{id} - 
-        const tr = createElement('tr');
-        const tdOne = createElement('td', {className: 'table__cell table__cell_one', contenteditable:'true'});
-        const tdTwp = createElement('td', {className: 'table__cell table__cell_two', contenteditable:'true'});
-        const tdDelete = createElement('td', {className: 'table__cell table__cell_two', contenteditable:'true'});
-        //button class="table__del"
+      // создает строку: 
+      const createTrCell = (dataArr) => {  //  /api/category/{id}  dataArr =  "pairs":[["me","меня; мне"],["you","тебя; тебе"],["him","его; ему"],["her","её; ей"],["it","его; ему"],["us","нас; нам"],["them","их; им"]]
+       // dataArr.forEach((item, i) => {
+          const tr = createElement('tr');
+          const tableCellMain = createElement('td', {className: 'table__cell table__cell_one', contenteditable:'true', textContent: dataArr[0]});
+          const tableCellSecond = createElement('td', {className: 'table__cell table__cell_two', contenteditable:'true', textContent: dataArr[1]});
+          const tableCellDel = createElement('td', {className: 'table__cell table__cell_two', contenteditable:'true'});
+          const delRow = createElement('button', {className: 'table__del', textContent:'x'});
+          
 
-      //   <tr>
-      //     <td class="table__cell table__cell_one" contenteditable="true">pair</td>
-      //     <td class="table__cell table__cell_two" contenteditable="true">brother</td>
-      //     <td class="table__cell"><button class="table__del">x</button></td>
-      //  </tr>
-      };
+          delRow.addEventListener('click', () => {
+            if(confirm('вы уверены что хоnите удалить?')){  //фцкнция confirm() встроена в браузер, если нажмем на Ок то уалится элемент
+              tr.remove();      // удаляем элемент
+            }
+          });
+
+          tableCellDel.append(delRow);
+          tr.append(tableCellMain, tableCellSecond, tableCellDel);
+
+          return tr; // <tr>...</tr>
+        }
+        //);
 
 
-    //  data.forEach(createTrCell())
-      
-//  data = /api/category/{id}  // [{pair1}, {pair2}, {pair3}]
+        const clearTitle = () => {
+          if(title.textContent === TITLE){
+            title.textContent = '';
+          }
+        };
+
+
+        const checkTitle = () => {
+          if(title.textContent === ''){
+            title.textContent = TITLE;
+          }
+        };
+
+
+        title.addEventListener('focus', clearTitle);  // когда фокус навели, скобики  у функции clearTitle  не указываем , иначе сразу вызовется
+        title.addEventListener('blur', checkTitle);   // когда фокус сняли
+
+  
+    //  data = /api/category/{id}  // [title: "kdkld", "pairs":[["me","меня; мне"],["you","тебя; тебе"],["him","его; ему"],["her","её; ей"],["it","его; ему"],["us","нас; нам"],["them","их; им"]]]
 
       const unmount = () => {
 
@@ -63,6 +89,8 @@ export const createEditCategory  = (app) => {   // app- родитель
 
       return { unmount, mount };
 };
+
+
 
 
 
