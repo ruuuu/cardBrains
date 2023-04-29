@@ -35,7 +35,7 @@ export const createEditCategory  = (app) => {   // app- родитель
       container.append(title, table, btnWrapper);
 
       // создает строку таблицы: 
-      const createTrCell = (dataArr) => {  //  /api/category/{id}  dataArr =  ["me","меня; мне"]
+      const createTrCell = (dataArr) => {  //  /api/category/{id}  dataArr = ["me","меня; мне"]
       
           const tr = createElement('tr');
           const tableCellMain = createElement('td', {className: 'table__cell table__cell_one', contenteditable:'true', textContent: dataArr[0]});
@@ -44,9 +44,9 @@ export const createEditCategory  = (app) => {   // app- родитель
           const delRow = createElement('button', {className: 'table__del', textContent:'x'});
           
 
-          delRow.addEventListener('click', () => {
+          delRow.addEventListener('click', () => { // кнопка Крестик
             if(confirm('вы уверены что хоnите удалить?')){  //фцкнция confirm() встроена в браузер, если нажмем на Ок то уалится элемент
-              tr.remove();      // удаляем элемент
+              tr.remove();      // удаляем элемент (строку)
             }
           });
 
@@ -75,8 +75,8 @@ export const createEditCategory  = (app) => {   // app- родитель
         title.addEventListener('focus', clearTitle);  // когда фокус навели, скобики  у функции clearTitle  не указываем , иначе сразу вызовется
         title.addEventListener('blur', checkTitle);   // когда фокус сняли
 
-        btnAddRow.addEventListener('click', () => { // кнопка Добавить пару
-          const emptyRow = createTrCell(['', '']);  
+        btnAddRow.addEventListener('click', () => {   // кнопка Добавить пару
+          const emptyRow = createTrCell(['', '']);    // пустая строка с двумя ячейками
           tbody.append(emptyRow);
         });
 
@@ -87,7 +87,7 @@ export const createEditCategory  = (app) => {   // app- родитель
             tbody.textContent = ''; // очищаем таблицу
             title.textContent = data.title;
 
-            if(title.textContent = TITLE){
+            if(title.textContent === TITLE){
               title.classList.add('edit__title_change');
             }
             else{
@@ -96,7 +96,9 @@ export const createEditCategory  = (app) => {   // app- родитель
 
             // "pairs":[["me","меня; мне"],["you","тебя; тебе"],["him","его; ему"],["her","её; ей"],["it","его; ему"],["us","нас; нам"],["them","их; им"]]]
             const rows = data.pairs.map(createTrCell);  // map переберет массив и вернет новый rows = [tr, tr, tr, tr]
-            tbody.append(...rows);  // ...rows=  <tr>...</tr> <tr>...</tr> <tr>...</tr> <tr>...</tr>
+            const emptyRow = createTrCell(['', '']);   // пустая строка из двух ячеек
+           
+            tbody.append(...rows, emptyRow);  // ...rows =  <tr>...</tr> <tr>...</tr> <tr>...</tr> <tr>...</tr>
 
             app.append(editCategory);
       };
@@ -106,6 +108,8 @@ export const createEditCategory  = (app) => {   // app- родитель
         editCategory.remove(); // удаляем секцию
       };
 
+
+     
 
 
       return { unmount, mount };

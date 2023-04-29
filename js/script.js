@@ -1,7 +1,7 @@
 import { createCategory } from "./components/createCategory.js";
 import { createHrader } from "./components/createHeader.js";
 import { createElement } from "./helper/createElement.js";
-import { fecthCategories } from "./service/api_service.js";
+import { fecthCategories, fetchCards } from "./service/api_service.js";
 import { createEditCategory } from "./components/createEditCategory.js";
 
 
@@ -18,18 +18,20 @@ const initApp = async () => {  // ставим async тк в фукнции ес
      
 
       const categoryObj = createCategory(app);
-      console.log('categoryObj ', categoryObj); // { categoryList, mount, unmount }
+      console.log('categoryObj ', categoryObj); // {  mount, unmount, categoryList }
 
       const editCategoryObj = createEditCategory(app);
       console.log('editCategoryObj  ', editCategoryObj); // { unmount, mount  }
 
       // очищение категорий :
       const allSectionUnmount = () => {
+            // либо сразу так:
             // [ categoryObj, editCategoryObj ].forEach((obj) => {
             //       obj.unmount();
             // });
+            // либо по отдельности:
             categoryObj.unmount();   // очищаем категории
-            editCategoryObj.unmount();
+            editCategoryObj.unmount(); // очистка секции таблцы
       };
      
 
@@ -57,8 +59,30 @@ const initApp = async () => {  // ставим async тк в фукнции ес
       headerObj.headerBtn.addEventListener('click', () => { // кнопка Добавить категорию
             allSectionUnmount(); 
             headerObj.updateHeaderTitle('Новая категория');
-            editCategoryObj.mount(); // отображаем таблицу 
-      })
+            editCategoryObj.mount(); // отображаем пустую таблицу новой категории
+      });
+
+
+      //                                            либо так { target} 
+      categoryObj.categoryList.addEventListener('click', async(evt) => {  // навешеиваме обработчик не на каждую кнпоку редаткрования картчоки категории, а на их родителя(categoryList)-это делегирование
+            const target = evt.target;  //  элемент на котрый нажали
+            const categoryItem = target.closest('.category__item');  // есть ли  элемента его родителя класса category__item. Если  есть такой элемент, то вернет его иначе null
+
+            if(target.closest('.category__edit')){
+                  const dataCards = await fetchCards(categoryItem.dataset.id);                   // await нужен, иначе промис получим, ответ от сервера: { "title":"Косвенные местоимения",  "pairs":[["me","меня; мне"],["you","тебя; тебе"],["him","его; ему"],["her","её; ей"],["it","его; ему"],["us","нас; нам"],["them","их; им"]],  "id":"bc2iv1cwi6ht" }
+                  allSectionUnmount(); 
+                  headerObj.updateHeaderTitle('Редактирование');  
+                  editCategoryObj.mount(dataCards);  // рисуме таблицу выбранной категории   
+                  return; 
+            }
+            
+           
+            
+      });
 };
+
+
+
+
 
 initApp(); // отсюда все начинается!

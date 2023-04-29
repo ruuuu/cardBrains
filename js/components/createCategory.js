@@ -20,7 +20,7 @@ export const createCategory = (app) => {  //app-родиель
       });
 
       
-// созданеи картчки категории:
+      // созданеи картчки категории:
       const createCategoryCard = (data) => {   // категория с сервера  data = {id, title, length}
             const item = createElement('li', { className: 'category__item'});
 
@@ -46,7 +46,7 @@ export const createCategory = (app) => {  //app-родиель
 
       // добавляем карточки-категории в ul-categoryList:
       const mount = (data) => {  // data = [{}, {}, {}] - массив категорий с сервера
-            categoryList.textContent = '';    // очищаем секцию     
+            categoryList.textContent = '';    // очищаем ul   
       
             const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим новый массив [ <li></li>, <li></li>, <li></li>]
             //console.log('...cards ', ...cards);
