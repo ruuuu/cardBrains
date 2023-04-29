@@ -57,7 +57,7 @@ const initApp = async () => {  // ставим async тк в фукнции ес
       headerObj.headerBtn.addEventListener('click', () => { // кнопка Добавить категорию
             allSectionUnmount(); 
             headerObj.updateHeaderTitle('Новая категория');
-            editCategoryObj.mount();
+            editCategoryObj.mount(); // отображаем таблицу 
       })
 };
 

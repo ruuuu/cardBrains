@@ -42,13 +42,16 @@ export const createCategory = (app) => {  //app-родиель
 
       container.append(categoryList);
 
+
+
       // добавляем карточки-категории в ul-categoryList:
       const mount = (data) => {  // data = [{}, {}, {}] - массив категорий с сервера
             categoryList.textContent = '';    // очищаем секцию     
-            app.append(category); // добавляем элемент category в конец app 
-            
+      
             const cards = data.map(createCategoryCard);  // перебираем массив: на каждой итерации вызовется функция createCategoryCard,  в итоге получим новый массив [ <li></li>, <li></li>, <li></li>]
-            categoryList.append(...cards);
+            //console.log('...cards ', ...cards);
+            categoryList.append(...cards); // ...cards = <li>...</li> <li>...</li> <li>...</li> <li>...</li>
+            app.append(category); // добавляем элемент category в конец app 
       };
 
 
