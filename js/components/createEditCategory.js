@@ -3,6 +3,8 @@ import { createElement } from "../helper/createElement.js";
 
 const TITLE = 'введите название категории';
 
+
+
 export const createEditCategory  = (app) => {   // app- родитель
       
       const editCategory = createElement('section', { className: 'edit section-offset'});
@@ -33,6 +35,7 @@ export const createEditCategory  = (app) => {   // app- родитель
       trThead.append(tableHeadCellMain, tableHeadCellSecond, tableHeadCellEmpty);
       editCategory.append(container);
       container.append(title, table, btnWrapper);
+
 
       // создает строку таблицы: 
       const createTrCell = (dataArr) => {  //  /api/category/{id}  dataArr = ["me","меня; мне"]
@@ -82,7 +85,7 @@ export const createEditCategory  = (app) => {   // app- родитель
 
 
 
-       // data то, что придет с запроса /api/category/{id} :
+       // data - то, что придет с запроса /api/category/{id} :
       const mount = (data = { title: TITLE, pairs: [] }) => {  // если ничего не передадим, то передастся знач  data по умолчанию , pairs пустой так как таблицу будем ноавую создавать
             tbody.textContent = ''; // очищаем таблицу
             title.textContent = data.title;

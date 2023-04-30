@@ -25,7 +25,7 @@ export const fecthCategories = async () => {
 
 
 
-// получение категории с сервера:
+// получение категории  по ее id с сервера:
 export const fetchCards = async (id) => {
 
       try{
