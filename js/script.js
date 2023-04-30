@@ -99,7 +99,6 @@ const initApp = async () => {  // ставим async тк в фукнции ес
                   
                   pairsObj.mount(dataCards);
                   //editCategoryObj.mount(dataCards);  // рисуме таблицу выбранной категории   
-
             }   
       });
 

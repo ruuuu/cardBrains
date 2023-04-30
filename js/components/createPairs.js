@@ -18,7 +18,6 @@ export const createPairs = (app) => {
 
       const buttonCard = createElement('button', {  // картчоку сделали кнопкой, тк при на;атии на нее должен выполнится js-код, а недействие  в браузере
             className: 'card__item',
-            
       });
 
       const front = createElement('span', {
@@ -37,9 +36,47 @@ export const createPairs = (app) => {
       container.append(buttonReturn, buttonCard);
       buttonCard.append(front, back);
 
+      // переворот карточки:
+      const cardController = (data) => { // data = [["me","меня; мне"], ["you","тебя; тебе"], ["him","его; ему"], ["her","её; ей"], ["it","его; ему"]]
+           let index = 0;
+            
+           front.textContent = data[index][0];
+           back.textContent = data[index][1];
 
-      const mount = (data) => {
-            app.append(pairs);
+           const flipCard = () => {
+                  buttonCard.classList.add('card__item_flipped');  //  картчока станет желтого цвета
+                  buttonCard.removeEventListener('click', flipCard);  // снимаем событие
+                  setTimeout(() => {
+                        buttonCard.classList.remove('card__item_flipped');
+                        setTimeout(() => {
+                              index++;
+                              if(index === data.length){
+                                    front.textContent  = 'Закончили';
+                                    setTimeout(() => {
+                                          buttonReturn.click();  // браузер сам жмет на кноку buttonReturn!!!
+                                    }, 2000);
+                                    return
+                              }
+                            
+                              front.textContent = data[index][0]; 
+                              back.textContent = data[index][1];
+                              setTimeout(() => {
+                                    buttonCard.addEventListener('click', flipCard);
+                              }, 200);
+                        }, 100);
+                  }, 2000);
+           };
+
+           buttonCard.addEventListener('click', flipCard);
+      }
+
+
+     
+      
+
+      const mount = (data) => { 
+            app.append(pairs);  // отрисовка картчоки слова
+            cardController(data.pairs);  
       }
 
 
