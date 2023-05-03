@@ -1,4 +1,7 @@
 import { createElement } from "../helper/createElement.js";
+import { showAlert } from "./showAlert.js";
+import { shuffleArray } from "./shuffle.js";
+
 
 // отрисовка болшой карточки:
 export const createPairs = (app) => {
@@ -38,7 +41,7 @@ export const createPairs = (app) => {
 
       // переворот карточки:
       const cardController = (data) => { // data = [["me","меня; мне"], ["you","тебя; тебе"], ["him","его; ему"], ["her","её; ей"], ["it","его; ему"]]
-           let index = 0;
+            let index = 0;
             
            front.textContent = data[index][0];
            back.textContent = data[index][1];
@@ -52,6 +55,7 @@ export const createPairs = (app) => {
                               index++;
                               if(index === data.length){
                                     front.textContent  = 'Закончили';
+                                    showAlert('back to start'); 
                                     setTimeout(() => {
                                           buttonReturn.click();  // браузер сам жмет на кноку buttonReturn!!!
                                     }, 2000);
@@ -64,10 +68,10 @@ export const createPairs = (app) => {
                                     buttonCard.addEventListener('click', flipCard);
                               }, 200);
                         }, 100);
-                  }, 2000);
+                  }, 2000); // через 2с(2000мс) запустится переданная фукнция
            };
 
-           buttonCard.addEventListener('click', flipCard);
+           buttonCard.addEventListener('click', flipCard);  // при нажатии на картчоку-слово, вызовется фукнция flipCard
       }
 
 
@@ -76,7 +80,9 @@ export const createPairs = (app) => {
 
       const mount = (data) => { 
             app.append(pairs);  // отрисовка картчоки слова
-            cardController(data.pairs);  
+            const newMas = shuffleArray(data.pairs)
+            //             data.pairs
+            cardController(newMas);   //  переворот карточки-слово
       }
 
 
